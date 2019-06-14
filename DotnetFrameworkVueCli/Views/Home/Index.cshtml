@@ -1,0 +1,43 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+
+<h2>Manage Users - jQuery</h2>
+
+<div id="loader">
+    Loading...
+</div>
+
+<table id="table" style="display:none" class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <td>Name</td>
+            <td>Email</td>
+            <td>Phone</td>
+            <td>Website</td>
+        </tr>
+    </thead>
+
+    <tbody></tbody>
+
+</table>
+
+@section Scripts {
+    <script>
+        $('document').ready(function () {
+            loadData();
+        })
+        function loadData() {
+            $('#loader').show();
+            $.get('https://jsonplaceholder.typicode.com/users', function (data) {
+                $.each(data, function (index, user) {
+                    $('#table > tbody:last').append('<tr><td>' + user.name + '</td><td>' + user.email + '</td><td>' + user.phone + '</td><td>' + user.website + '</td></tr>');
+                });
+            });
+            $('#loader').hide();
+            $('#table').show();
+        }
+    </script>
+}
